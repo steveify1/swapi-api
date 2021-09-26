@@ -31,8 +31,6 @@ export class MovieService {
                 edited: movie.edited,
             }
         });
-        
-        // TODO: Some formating
 
         return movies;
     }

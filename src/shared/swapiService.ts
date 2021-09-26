@@ -23,4 +23,17 @@ export class SwapiService {
             this.handleError(error);
         }
     }
+
+    /**
+     * This method returns all the star wars characters
+     */
+     async fetchCharacters(): Promise<any> {
+        try {
+            const { data } = await axios.get('/people');
+            return data.results;
+        } catch (error) {
+            console.log(error);
+            this.handleError(error);
+        }
+    }
 }
