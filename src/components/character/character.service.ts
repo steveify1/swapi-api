@@ -15,17 +15,21 @@ export class CharacterService {
     }
 
     private generateHeightMetadata(characters: any[]) {
+        const totalHeightInCentimeters = characters.reduce((prevValue: number, currentCharacter) => {
+            return prevValue + parseFloat(currentCharacter.height);
+        }, 0);
+
         return {
-            cm: 1000,
-            in: 30,
-            ft: 3,
+            centimeters: totalHeightInCentimeters,
+            inches: Number((totalHeightInCentimeters / 2.54).toFixed(2)),
+            feet: Number((totalHeightInCentimeters / 30.48).toFixed(2)),
         }
     }
 
     private generateMetaData(characters: any[]) {
         return {
             count: characters.length,
-            height: this.generateHeightMetadata(characters),
+            totalHeight: this.generateHeightMetadata(characters),
         };
     }
 
@@ -45,6 +49,6 @@ export class CharacterService {
         
         const metadata = this.generateMetaData(characters);
 
-        return { characters, metadata };
+        return { metadata, characters };
     }
 }
