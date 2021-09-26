@@ -17,7 +17,7 @@ export class SwapiService {
     async fetchMovies(): Promise<any> {
         try {
             const { data } = await axios.get('/films');
-            return data;
+            return data.results;
         } catch (error) {
             console.log(error);
             this.handleError(error);
