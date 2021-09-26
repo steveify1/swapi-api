@@ -6,6 +6,7 @@
         "emitDecoratorMetadata": true,
         "module": "CommonJS",
         "moduleResolution": "Node",
-        "target": "ES5"
+        "target": "ES5",
+        "esModuleInterop": true
     }
 }
