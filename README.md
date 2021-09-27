@@ -36,7 +36,7 @@ RUN `npm run build`
 ##### Step 5: Provision a MySQL database
 At this point if you do not have the MySQL server install, you will need to install one. See https://www.mysql.com/downloads/. Alternatively you can provision one with docker by running the followin command
     
-    ```docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<root_password> -e MYSQL_DATABASE=<database_name> -e MYSQL_USER=<user> -e MYSQL_PASSWORD=<password>```
+    ```docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<root_password> -e MYSQL_DATABASE=<database_name> -e MYSQL_USER=<user> -e MYSQL_PASSWORD=<password> mysql/mysql-server```
 
 Ideally, you should replace `<database_name>` in the docker command with the value of the `DB_NAME` variable in your .env file.
 
