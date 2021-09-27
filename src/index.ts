@@ -1,15 +1,20 @@
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
+import { Sequelize } from 'sequelize';
 import cors from 'cors';
 import { env } from './shared/env';
 import router from './routers';
 import ApplicationError from './errors/application-error';
+import connection from './database/connection';
+
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(router);
+
+connection.connect();
 
 app.use((err: Error | ApplicationError, req: Request, res: Response, next: NextFunction) => {
     let statusCode = (err as ApplicationError).statusCode || 500;
