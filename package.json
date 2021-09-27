@@ -21,8 +21,6 @@
     "express": "^4.17.1",
     "mysql2": "^2.3.0",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.6.5",
-    "sequelize-cli": "^6.2.0",
     "tsyringe": "^4.6.0",
     "typeorm": "^0.2.37",
     "typescript": "^4.4.3"
