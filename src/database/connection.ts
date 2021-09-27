@@ -1,19 +1,33 @@
-import { createConnection } from 'typeorm';
+import { ConnectionOptions, createConnection } from 'typeorm';
+import { env } from '../shared/env';
 
 const connection = {
     connect() {
-        createConnection({
+        let options: ConnectionOptions = {
             type: "mysql",
-            host: process.env.DB_HOST,
-            port: Number(process.env.DB_PORT || 3306),
-            username: process.env.DB_USER || 'root',
-            password: process.env.DB_PASSWORD || '',
-            database: process.env.DB_NAME,
+            database: env('DB_NAME'),
             entities: [
                 "dist/database/entities/*.js"
             ],
             synchronize: true,
-        }).then(connection => {
+        };
+
+        if (env('NODE_ENV') == 'production') {
+            options = {
+                url: env('DB_URL'),
+                ...options,
+            };
+        } else {
+            options = {
+                ...options,
+                host: env('DB_HOST'),
+                port: Number(env('DB_PORT')  || 3306),
+                username: env('DB_USER')  || 'root',
+                password: env('DB_PASSWORD') || '',
+            };
+        }
+
+        createConnection(options).then(connection => {
             console.log('Successfully connected to the database');
         }).catch(err => {
             console.log('Error', err);
