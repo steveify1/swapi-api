@@ -13,6 +13,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(router);
+app.use('*', (req, res) => {
+    res.status(404).json({
+        status: 'error',
+        message: 'Did you hit a wall? Chill...lol This endpoint just does not exist'
+    });
+});
 
 connection.connect();
 
