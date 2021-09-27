@@ -4,6 +4,11 @@
  */
 export interface ServiceMethodOptions {
   /**
+   * An IP address representing the current user
+   */
+  currentUser?: string;
+
+  /**
    * The request query object
    */
   query?: any

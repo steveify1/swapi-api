@@ -25,6 +25,21 @@ export class SwapiService {
     }
 
     /**
+     * This method returns a single the star wars episode
+     * 
+     * @param { string } episodeId - The ID of an episode
+     */
+     async fetchMovie(episodeId: string): Promise<any> {
+        try {
+            const { data } = await axios.get(`/films/${episodeId}`);
+            return data;
+        } catch (error) {
+            console.log(error);
+            this.handleError(error);
+        }
+    }
+
+    /**
      * This method returns all the star wars characters
      */
      async fetchCharacters(): Promise<any> {
