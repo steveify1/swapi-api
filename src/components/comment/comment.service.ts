@@ -1,6 +1,7 @@
 import { injectable } from 'tsyringe';
 import { FindConditions } from 'typeorm';
 import { Comment } from '../../database/entities/comment';
+import { BadRequestError } from '../../errors';
 import { CommentFilterInput, CreateCommentInput } from './comment.input';
 
 @injectable()
@@ -17,6 +18,10 @@ export class CommentService {
      * @param input - An object containing the data required for creating a new comment
      */
     async create(input: CreateCommentInput): Promise<Comment> {
+        if (!input.body) throw new BadRequestError('Comment cannot be empty');
+
+        if (input.body.length > 500) throw new BadRequestError('Comment must not exceed 500 characters');
+
         const comment = this.commentModel.create({
             ...input,
             createdAt: new Date().toUTCString(),
@@ -37,7 +42,19 @@ export class CommentService {
 
     async fetchAll(filters?: FindConditions<Comment>): Promise<Comment[]> {
         const findConditions = this.buildFilters(filters);
-        return this.commentModel.find({ where: findConditions });
+        const comments = await this.commentModel.find({
+            where: findConditions,
+            order: {
+                createdAt: 'DESC',
+            }
+        });
+
+        return comments.map(comment => {
+            return Object.assign(comment, {
+                createdAt: new Date(comment.createdAt).toUTCString(),
+                updatedAt: new Date(comment.updatedAt).toUTCString(),
+            });
+        })
     }
 
     /**

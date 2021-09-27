@@ -9,5 +9,12 @@ export function MovieRouter(options: ComponentRouterOptions<MovieController>): R
     router.route('/')
         .get(controller.fetchMovies);
 
+    router.route('/:episodeId')
+        .get(controller.fetchMovie);
+    
+    router.route('/:episodeId/comments')
+        .post(controller.addMovieComment)
+        .get(controller.fetchMovieComments);
+
     return router;
 }
