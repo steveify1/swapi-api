@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  db:
+    image: mysql/mysql-server
+    restart: unless-stopped
+    
+  app:
+    build: .
+    ports:
+      - "7000:7000"
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    environment:
+      - PORT=7000
+      - NODE_ENV=development
+      - DB_NAME=swapi_metacare
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_HOST=db
+      - DB_PORT=3306
+      - SWAPI_BASE_URL=https://swapi.dev/api
