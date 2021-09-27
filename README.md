@@ -40,6 +40,10 @@ At this point if you do not have the MySQL server install, you will need to inst
 
 Ideally, you should replace `<database_name>` in the docker command with the value of the `DB_NAME` variable in your .env file.
 
+##### Step6: Start the server
+RUN `npm start`
+You can also start the server in dev mode by running `npm run dev`
+
 ### App Features
 - Fetch a list of all movies
 - Fetch a list of al characters. You can sort by the keys on the result and also filter by gender
